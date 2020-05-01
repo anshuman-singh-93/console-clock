@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func main() {
@@ -88,7 +89,7 @@ func main() {
 		"███",
 	}
 
-	digits := [...]placeholder	{
+	digits := [...]placeholder{
 		zero,
 		one,
 		two,
@@ -101,16 +102,27 @@ func main() {
 		nine,
 	}
 
+	for {
+		time.Sleep(time.Second)
+		print("\033[H\033[2J")
 
+		now := time.Now()
+		hour, min, sec := now.Hour(), now.Minute(), now.Second()
 
-	for i := 0 ; i <5 ; i++ {
-
-		for i2  := range digits {
-			fmt.Print(digits[i2][i],"  ")
-
+		clock := [...]placeholder{
+			digits[hour/10], digits[hour%10], digits[min/10], digits[min%10], digits[sec/10], digits[sec%10],
 		}
 
-		fmt.Println()
+		for i := 0; i < 5; i++ {
+
+			for i2 := range clock {
+				fmt.Print(clock[i2][i], "  ")
+
+			}
+
+			fmt.Println()
+
+		}
 
 	}
 
